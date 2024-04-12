@@ -1,0 +1,29 @@
+code: diary-app
+class: compute
+name: Diary App
+
+resources:
+  - code: diary-app
+    type: container
+    data:
+      image: ${Repositories_Default_RepositoryUri}:${Image_Tag}
+      port: 8080
+      desired: 2
+      cpu: 256
+      memory: 512
+      edge:
+        edges:
+          - edge: diary.prod.playground.n-cc.net
+            environment: prod
+          - edge: diary.dev.playground.n-cc.net
+            environment: dev
+        health:
+          path: /
+          port: 8080
+          timeout: 25
+          interval: 30
+          unhealthy_threshold: 5
+          healthy_threshold: 5
+        rules:
+          - path: "*"
+            priority: 1000
