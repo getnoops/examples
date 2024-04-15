@@ -1,0 +1,30 @@
+code: diary-api
+class: compute
+name: Diary API
+
+access: []
+
+resources:
+  - code: db
+    type: database
+    data:
+      cluster: diary-cluster
+  - code: diary-api
+    type: container
+    data:
+      image: ${Repositories_Default_RepositoryUri}:${Image_Tag}
+      port: 8080
+      desired: 2
+      cpu: 256
+      memory: 512
+      env_vars:
+        SERVICE: config
+        VERSION: v1.0.0
+        DB_HOST: "{{this:db:host}}"
+        DB_PORT: "{{this:db:port}}"
+        DB_DATABASE: "{{this:db:name}}"
+        DB_SSLMODE: require
+      secrets:
+        SECURITY_SIGNKEY: "{{secret:signkey}}"
+        DB_USERNAME: "{{this:db:userpass:username}}"
+        DB_PASSWORD: "{{this:db:userpass:password}}"

@@ -1,9 +1,13 @@
 export interface Entry {
+  id: string;
   text: string;
-  dateTime: string;
-  ts: string;
+  createdAt: string;
 }
 
 export interface CreateEntryBody {
-    text: string;
+  text: string;
+}
+
+export interface CreateEntryResponse {
+  id: string;
 }

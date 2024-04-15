@@ -39,10 +39,7 @@ const App = () => {
 
   const formTextError = errors.text?.message;
 
-  const {
-    data: entries,
-    error: getEntriesQueryError,
-  } = useGetEntriesQuery();
+  const { data: entries, error: getEntriesQueryError } = useGetEntriesQuery();
 
   const {
     mutate: createEntryMutation,
@@ -59,7 +56,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 pb-8">
+    <div className="min-h-screen bg-slate-50 pb-8 pt-24">
       <div className="mx-auto w-full max-w-6xl space-y-4 px-4 text-slate-700">
         <div className="flex items-end justify-between">
           <h1 className="text-xl font-medium">Dear Diary...</h1>
@@ -91,7 +88,7 @@ const App = () => {
             )}
           />
 
-          <div className="mt-2 mb-8 flex justify-between">
+          <div className="mb-8 mt-2 flex justify-between">
             <p className="font-medium text-red-700">
               {createEntryMutationError?.message || formTextError}
             </p>
@@ -100,7 +97,7 @@ const App = () => {
               className="inline-flex items-center gap-x-2 rounded-md bg-amber-500 px-3 py-1 font-medium text-white transition hover:bg-amber-600 hover:text-slate-100"
               type="submit"
             >
-              <div className="size-6 flex items-center justify-center rounded border border-white">
+              <div className="flex size-6 items-center justify-center rounded border border-white">
                 {animationText === "" && (
                   <motion.div
                     className="pointer-events-none"
@@ -158,7 +155,7 @@ const App = () => {
 
           {getEntriesQueryError ? (
             <div className="w-full rounded-lg border-2 border-dashed border-slate-300 p-12 text-center text-red-500 hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-              <XMarkIcon className="size-12 mx-auto" />
+              <XMarkIcon className="mx-auto size-12" />
               <span className="mt-2 block text-sm font-semibold">
                 Unable to fetch diary entries
               </span>
@@ -182,8 +179,8 @@ const App = () => {
               {entries?.length &&
                 entries.map((entry) => (
                   <motion.div
-                    key={entry.ts}
-                    layoutId={"page_" + entry.ts}
+                    key={entry.id}
+                    layoutId={"page_" + entry.id}
                     initial={{ opacity: 0, y: -50 }}
                     animate={{
                       opacity: 1,
@@ -201,7 +198,7 @@ const App = () => {
                       <div className="flex items-end justify-between">
                         <p className="font-medium">Dear Diary...</p>
                         <p className="text-sm text-slate-600">
-                          {formatTimestamp(entry.dateTime)}
+                          {formatTimestamp(entry.createdAt)}
                         </p>
                       </div>
 

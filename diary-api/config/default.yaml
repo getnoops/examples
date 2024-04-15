@@ -1,0 +1,16 @@
+service: diary-api
+version: v1.0.0
+srvaddr: :8080
+metricsaddr: :8081
+healthaddr: :8082
+
+db:
+  username: noops
+  password: mysecret
+  host: localhost
+  port: 5432
+  database: diaryapi
+  sslmode: disable
+
+security:
+  signkey: mysecretmysecret
